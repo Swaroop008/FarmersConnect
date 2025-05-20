@@ -1,4 +1,4 @@
-# FarmFusion
+# FarmConnect
 
 <img src="https://www.iisd.org/sites/default/files/styles/og_image/public/2020-06/RS2085_food-agriculture-topic.jpg?itok=cM6jCv9Q">
 
@@ -33,21 +33,21 @@ Swiftly identify and combat plant diseases with our advanced ML-based plant dise
 
 ## Installation
 
-1. Clone the repository: `gh repo clone Adi161201/FarmFusion`
+1. Clone the repository: `gh repo clone Swaroop008/FarmConnect`
 2. Install the required dependencies: `pip install -r requirements.txt`
 3. Run the application: `python app.py`
 4. Open your web browser and access the application at `http://localhost:5000`
 
 ## Running the Project Locally 🛠️
 - Before following the steps below, ensure that you have [git](https://git-scm.com/download), [Anaconda](https://www.anaconda.com/), or [miniconda](https://docs.conda.io/en/latest/miniconda.html) installed on your system.
-- Clone the project repository using the command: `gh repo clone Adi161201/FarmFusion` or download and unzip the code if you prefer.
+- Clone the project repository using the command: `gh repo clone Swaroop008/FarmConnect` or download and unzip the code if you prefer.
 - Open Anaconda Prompt in the directory where the project was cloned and run the following commands:
   ```
-  conda create -n farmfusion python
-  conda activate farmfusion
+  conda create -n farmconnect python
+  conda activate farmconnect
   pip install -r requirements.txt
   ```
-- Once the dependencies are installed, navigate to the project directory using the command: `cd farmfusion`
+- Once the dependencies are installed, navigate to the project directory using the command: `cd farmconnect`
 - To run the project locally, execute the following command:
   ```
   python app.py
