@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fertilizer</title>
+    <link rel="stylesheet" href="../static/css/fertilizer.css" />
+  </head>
+  <body>
+    <div id="fertilizer-main">
+      <a href="/" id="home-btn"><img src="../static/assets/home-icon.png" alt=""></a>
+      <div id="fertilizer-main-left">
+        <h2>Get informed advise on fertilizer based on soil</h2>
+        <div id="form-container">
+          
+          <div id="overlay"></div>
+          <form action="" class="fertilizer-form" id="fertilizerForm">
+            <div class="form-row" id="row-1">
+              <label for="nitrogen">Nitrogen:</label>
+              <input type="text" id="nitrogen" name="nitrogen" />
+            </div>
+
+            <div class="form-row" id="row-2">
+              <label for="phosphorus">Phosphorus:</label>
+              <input type="text" id="phosphorus" name="phosphorus" />
+            </div>
+
+            <div class="form-row" id="row-3">
+              <label for="potassium">Potassium:</label>
+              <input type="text" id="potassium" name="potassium" />
+            </div>
+
+            <div class="form-row" id="row-4">
+              <label for="crop">Crop you want to grow:</label>
+              <select id="crop" name="crop">
+                <option selected>Select crop</option>
+                <option>rice</option>
+                <option>maize</option>
+                <option>chickpea</option>
+                <option>kidneybeans</option>
+                <option>pigeonpeas</option>
+                <option>mothbeans</option>
+                <option>mungbean</option>
+                <option>blackgram</option>
+                <option>lentil</option>
+                <option>pomegranate</option>
+                <option>banana</option>
+                <option>mango</option>
+                <option>grapes</option>
+                <option>watermelon</option>
+                <option>muskmelon</option>
+                <option>apple</option>
+                <option>orange</option>
+                <option>papaya</option>
+                <option>coconut</option>
+                <option>cotton</option>
+                <option>jute</option>
+                <option>coffee</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <button type="submit" id="submitBtn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="fertilizer-main-right">
+        <div id="overlay-right"></div>
+        <!-- <div id="output" style="display: none"> -->
+        <p id="output" style="display: none"></p>
+        <!-- </div> -->
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#fertilizerForm").submit(function (e) {
+          e.preventDefault();
+          $("#progressBar").show(); // Show progress bar
+          $("#submitBtn").prop("disabled", true); // Disable submit button
+
+          $.ajax({
+            url: "/recommend_fertilizer",
+            type: "POST",
+            data: $(this).serialize(),
+            xhr: function () {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener(
+                "progress",
+                function (evt) {
+                  if (evt.lengthComputable) {
+                    var percentComplete = (evt.loaded / evt.total) * 100;
+                    $(".progress").width(percentComplete + "%");
+                    $(".progress-text").text(percentComplete.toFixed(0) + "%");
+                  }
+                },
+                false
+              );
+              return xhr;
+            },
+            success: function (response) {
+              // Parse the HTML string
+              var parser = new DOMParser();
+              var htmlDoc = parser.parseFromString(
+                response.prediction,
+                "text/html"
+              );
+
+              // Access and manipulate the parsed HTML content
+              var heading = htmlDoc.querySelector("h2");
+              var list = htmlDoc.querySelector("ol");
+              
+              $(heading).css({
+                "margin-bottom": "25px", // Add margin-bottom to the <h2> element
+                "max-width": "100%",     // Set max-width to prevent overflow
+                "overflow-wrap": "break-word" ,// Allow the heading to wrap within the width
+                "font-size":"25px"
+              });
+
+              $(list).css({
+                "margin-top": "15px",    // Add margin-top to the <ol> element
+                "max-width": "100%",     // Set max-width to prevent overflow
+                "overflow-wrap": "break-word", // Allow the list to wrap within the width
+                "font-size":"15px"
+              });
+
+              $("#output").empty().append(heading, list);
+              $("#output").show(); // Show the output div
+            },
+            error: function (error) {
+              console.log(error);
+            },
+            complete: function () {
+              // Hide progress bar and enable submit button after 3 seconds
+              setTimeout(function () {
+                $("#progressBar").hide();
+                $("#submitBtn").prop("disabled", false);
+                $(".progress").width("0%");
+                $(".progress-text").text("");
+              }, 3000);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+  <script>
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   var form = document.querySelector(".fertilizer-form");
+    //   var submitButton = document.getElementById("submit");
+    //   var outputDiv = document.getElementById("output");
+
+    //   form.addEventListener("submit", function (event) {
+    //     event.preventDefault(); // Prevent default form submission
+
+    //     var nitrogen = document.getElementById("nitrogen").value;
+    //     var phosphorus = document.getElementById("phosphorus").value;
+    //     var potassium = document.getElementById("potassium").value;
+    //     var crop = document.getElementById("crop").value;
+
+    //     // Perform AJAX request to send form data to the server
+    //     // and receive the result
+
+    //     // Example AJAX request using Fetch API
+    //     fetch("/recommend_fertilizer", {
+    //       method: "POST",
+    //       body: JSON.stringify({ nitrogen, phosphorus, potassium, crop }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     })
+    //       .then((response) => response.json())
+    //       .then((result) => {
+    //         outputDiv.textContent = result.prediction;
+    //         outputDiv.style.display = "block"; // Show the output div
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error:", error);
+    //       });
+    //   });
+    // });
+
+    //   document.addEventListener("DOMContentLoaded", function () {
+    //     var form = document.querySelector(".fertilizer-form");
+    //     var submitButton = document.getElementById("submit");
+    //     var outputDiv = document.getElementById("output");
+
+    //     form.addEventListener("submit", function (event) {
+    //       event.preventDefault(); // Prevent default form submission
+
+    //       var nitrogen = document.getElementById("nitrogen").value;
+    //       var phosphorus = document.getElementById("phosphorus").value;
+    //       var potassium = document.getElementById("potassium").value;
+    //       var crop = document.getElementById("crop").value;
+
+    //       // Check if any field is empty
+    //       if (
+    //         nitrogen === "" ||
+    //         phosphorus === "" ||
+    //         potassium === "" ||
+    //         crop === ""
+    //       ) {
+    //         outputDiv.textContent = "Please fill in all the fields.";
+    //         outputDiv.style.display = "block"; // Show the output div
+    //         return; // Stop further execution
+    //       }
+
+    //       // Perform AJAX request to send form data to the server and receive the result
+
+    //       // Example AJAX request using Fetch API
+    //       fetch("/recommend_fertilizer", {
+    //         method: "POST",
+    //         body: JSON.stringify({ nitrogen, phosphorus, potassium, crop }),
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       })
+    //         .then((response) => response.json())
+    //         .then((result) => {
+    //           outputDiv.textContent = result.prediction;
+    //           outputDiv.style.display = "block"; // Show the output div
+    //         })
+    //         .catch((error) => {
+    //           console.error("Error:", error);
+    //         });
+    //     });
+    //   });
+    //
+  </script>
+</html>

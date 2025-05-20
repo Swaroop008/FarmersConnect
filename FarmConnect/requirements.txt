@@ -1,0 +1,9 @@
+flask
+numpy
+pandas
+Pillow
+requests
+tensorflow
+torch
+torchvision
+gunicorn

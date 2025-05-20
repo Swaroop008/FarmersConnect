@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  background: border-box;
+}
+html,
+body {
+  overflow: hidden;
+  /* background-color: red; */
+  background-image: url(../assets/tractor2.jpg);
+  background-size: cover;
+  font-family: "Great Vibes", cursive;
+}
+
+#home-btn{
+  position: absolute;
+  top: 1%;
+  left: 2%;
+}
+#home-btn img{
+  width: 90%;
+  height: 100%;
+}
+#bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* z-index: 100; */
+  height: 100%;
+  width: 100%;
+  background-color: rgba(251, 247, 247, 0.166);
+}
+
+
+#crop-recom-main {
+  max-height: 100%;
+  max-width: 100%;
+  /* background-color: red; */
+  padding-top: 20px;
+  /* `display: flex; */
+}
+
+
+h2{
+  /* position: absolute; */
+  margin-bottom: 20px;
+  transform: translateX(27%);
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+ .beautiful-form {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 105px;
+  width: 60%;
+  height: 72%;
+  margin-top: 1%;
+  margin-left: 15%;
+  padding: 3%;
+  background: rgba(255, 255, 255, 0.562);
+  /* background-color: #f7f7f7; */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 20px;
+  border: 5px solid rgba(255, 255, 255, 0.068);
+  /* border-radius: 6px; */
+  padding: 3%;
+}
+
+
+.left-column {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+}
+
+.right-column {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #6f42c1; /* Purple color */
+}
+
+input,
+select {
+  padding: 8px;
+  border: 4px solid #23212153;
+  border-radius: 4px;
+  width: 100%;
+}
+
+button {
+  
+  font-size: 15px;
+  padding: 10px 20px;
+  width: 100px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border: 2px solid green;
+  border-radius: 50px;
+  cursor: pointer;
+  position: absolute;
+  left: 45%;
+  bottom: 30%;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.output-box {
+  margin-top: 20px;
+  position: absolute;
+  bottom: 2%;
+  left: 20%;
+  width: 100%;
+  
+}
+
+.output-box label {
+  font-weight: bold;
+  color: #6f42c1; /* Purple color */
+  position: absolute;
+  bottom: 40%;
+  z-index: 99;
+}
+.output-box textarea {
+  
+  padding: 8px;
+  border: 7px solid hwb(316 12% 23% / 0.73);
+  border-radius: 4px;
+  /* resize: vertical; */
+  background-color: #ffe8f998; /* Light purple background color */
+  color: #6f42c1; /* Purple color */
+  position: absolute;
+  left: 10%;
+  bottom: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  margin-bottom: 10px;
+  display: none; /* Hide by default */
+  position: absolute;
+  margin: 1%;
+  bottom: 20%;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background-color: #4caf50;
+}

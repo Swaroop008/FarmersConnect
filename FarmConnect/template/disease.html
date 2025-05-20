@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Design by foolishdeveloper.com -->
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Leaf Disease</title>
+    <link rel="stylesheet" href="../static/css/disease.css" />
+  </head>
+  <body>
+    <a href="/" id="home-btn"><img src="../static/assets/home-icon.png" alt=""></a>
+    <h2>Find out which disease has been caught by your plant</h2>
+    <!-- <div id="overlay"></div> -->
+    <div class="center">
+      <div class="form-input">
+        <div class="preview">
+          <img id="file-ip-1-preview" />
+        </div>
+        <label for="file-ip-1">Upload Image</label>
+        <input
+          type="file"
+          id="file-ip-1"
+          accept="image/*"
+          onchange="showPreview(event);"
+        />
+      </div>
+      <button id="detect-btn" onclick="detectDisease()">Detect Disease</button>
+    </div>
+
+    <div id="answer"></div>
+    <div id="img-container-left">
+      <img src="../static/assets/farmer-crop.jpg" alt="" />
+    </div>
+
+    <script type="text/javascript">
+      function showPreview(event) {
+        if (event.target.files.length > 0) {
+          var src = URL.createObjectURL(event.target.files[0]);
+          var preview = document.getElementById("file-ip-1-preview");
+          preview.src = src;
+          preview.style.display = "block";
+        }
+      }
+
+      function detectDisease() {
+        var fileInput = document.getElementById("file-ip-1");
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("image", file);
+
+        fetch("/detect_disease", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              // Handle error
+              document.getElementById("answer").textContent = data.error;
+            } else {
+              // Display the output
+              document.getElementById("answer").textContent = data.result;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

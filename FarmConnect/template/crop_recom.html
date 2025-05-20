@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/crop-recom.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/cef954db8c.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <link rel="stylesheet" href="../static/css/style.css" /> -->
+    <title>Crop</title>
+  </head>
+  <body>
+    <div id="bg-overlay"></div>
+    <a href="/" id="home-btn" title="Go to Home"
+      ><img src="../static/assets/home-icon.png" alt=""
+    /></a>
+    <h2>Find out the best suitable crop to grow in your farm</h2>
+    <form class="beautiful-form" id="cropForm">
+      <div class="left-column">
+        <div class="form-row">
+          <label for="nitrogen">Nitrogen:</label>
+          <input type="text" id="nitrogen" name="nitrogen" />
+        </div>
+
+        <div class="form-row">
+          <label for="phosphorus">Phosphorus:</label>
+          <input type="text" id="phosphorus" name="phosphorus" />
+        </div>
+
+        <div class="form-row">
+          <label for="potassium">Potassium:</label>
+          <input type="text" id="potassium" name="potassium" />
+        </div>
+
+        <div class="form-row">
+          <label for="ph-level">pH Level:</label>
+          <input type="text" id="ph-level" name="ph-level" />
+        </div>
+      </div>
+
+      <div class="right-column">
+        <div class="form-row">
+          <label for="rainfall">Rainfall:</label>
+          <input type="text" id="rainfall" name="rainfall" />
+        </div>
+
+        <div class="form-row">
+          <label for="state">State:</label>
+          <select id="state" name="state">
+            <option value="state1">State 1</option>
+            <option value="state2">State 2</option>
+            <option value="state3">State 3</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <button type="submit">Submit</button>
+      </div>
+
+      <div class="progress-bar" id="progressBar">
+        <div class="progress"></div>
+        <div class="progress-text"></div>
+      </div>
+
+      <div class="output-box">
+        <label for="output">Output:</label>
+        <textarea id="output" readonly rows="4" cols="50"></textarea>
+      </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#cropForm").submit(function (e) {
+          e.preventDefault();
+          $("#progressBar").show(); // Show progress bar
+          $("#submitBtn").prop("disabled", true); // Disable submit button
+
+          $.ajax({
+            url: "/predict",
+            type: "POST",
+            data: $(this).serialize(),
+            xhr: function () {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener(
+                "progress",
+                function (evt) {
+                  if (evt.lengthComputable) {
+                    var percentComplete = (evt.loaded / evt.total) * 100;
+                    $(".progress").width(percentComplete + "%");
+                    $(".progress-text").text(percentComplete.toFixed(0) + "%");
+                  }
+                },
+                false
+              );
+              return xhr;
+            },
+            success: function (response) {
+              $("#output").val(response.prediction);
+            },
+            error: function (error) {
+              console.log(error);
+            },
+            complete: function () {
+              // Hide progress bar and enable submit button after 3 seconds
+              setTimeout(function () {
+                $("#progressBar").hide();
+                $("#submitBtn").prop("disabled", false);
+                $(".progress").width("0%");
+                $(".progress-text").text("");
+              }, 3000);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+
+  <!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  var form = document.querySelector(".fertilizer-form");
+  var submitButton = document.getElementById("submit");
+  var outputDiv = document.getElementById("output");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var nitrogen = document.getElementById("nitrogen").value;
+    var phosphorus = document.getElementById("phosphorus").value;
+    var potassium = document.getElementById("potassium").value;
+    var ph = document.getElementById("ph-level").value;
+    var rainfall = document.getElementById("rainfall").value;
+    var city = document.getElementById("city").value;
+
+    // Perform AJAX request to send form data to the server
+    // and receive the result
+
+    // Example AJAX request using Fetch API
+    fetch("/predict", {
+      method: "POST",
+      body: JSON.stringify({ nitrogen, phosphorus, potassium, ph,rainfall, city}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(result => {
+        outputDiv.textContent = result.prediction;
+        outputDiv.style.display = "block"; // Show the output div
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  });
+});
+
+  </script> -->
+</html>

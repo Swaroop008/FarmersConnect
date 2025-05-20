@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+
+
+body {
+    
+  overflow: hidden;
+  margin: 0px;
+  height: 100vh;
+  /* background: #1283da; */
+  /* background-image: url('https://img.freepik.com/free-vector/farm-mill-wheat-field-illustration_1284-59601.jpg?w=1380&t=st=1689420220~exp=1689420820~hmac=1e6ac395dfcb2fa26a8544fae0517c1bb0be90baadd54da452f0c061eccaed4e');
+  background-size: cover; */
+  font-family: "Great Vibes", cursive;
+}
+h2{
+  position: absolute;
+  top: 3%;
+  left: 30%;
+}
+#home-btn{
+  position: absolute;
+  top: 1%;
+  left: 2%;
+ 
+}
+#home-btn img{
+  width: 90%;
+  height: 100%;
+}
+#overlay {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.43);
+}
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-input {
+  width: 350px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: -3px -3px 7px rgba(94, 104, 121, 0.377),
+    3px 3px 7px rgba(94, 104, 121, 0.377);
+}
+.form-input input {
+  display: none;
+}
+.form-input label {
+  display: block;
+  width: 45%;
+  height: 45px;
+  margin-left: 25%;
+  line-height: 50px;
+  text-align: center;
+  background: #1172c2;
+
+  color: #fff;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+  text-transform: Uppercase;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-input img {
+  width: 100%;
+  display: none;
+
+  margin-bottom: 30px;
+}
+
+#img-container {
+  width: 13%;
+  height: 50%;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+}
+
+#img-container-left {
+  background-color: red;
+  position: absolute;
+  bottom: 0%;
+  left: -5%;
+  width: 50%;
+  height: 75%;
+  z-index: -1;
+}
+
+#img-container-left img {
+  height: 100%;
+  width: 100%;
+}
+
+#detect-btn {
+  margin-left: 20px;
+  font-size: 15px;
+  padding: 10px 20px;
+  width: 150px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border: 2px solid green;
+  border-radius: 50px;
+  cursor: pointer;
+  position: absolute;
+  right: 25%;
+}
+
+#answer{
+    position: absolute;
+    z-index: 100;
+    /* background-color: red; */
+    width: 10%;
+    height: 10%;
+    bottom: 20%;
+    right: 20%;
+    font-size: 30px;
+}
+
